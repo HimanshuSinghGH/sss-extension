@@ -1,0 +1,11 @@
+{
+  "manifest_version": 2,
+  "name": "SSS Password Manager",
+  "version": "0.1",
+
+  "browser_action": {
+    "default_icon": "icons/extension-32.png",
+    "default_popup": "frontend/popup.html",
+    "default_title": "SSS based Password Manager"
+  }
+}
