@@ -2,10 +2,22 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="popup.css">
+    <link rel="stylesheet" href="/frontend/popup.css">
     <title>SSS Browser Extension</title>
   </head>
   <body>
-    <h1>Hello World</h1>
+    <p id="p_url"></p>   
+    <form>
+      <input type="text" id="pass" placeholder="Password for this site">
+    </form>
+    <!--The save button will save the secret shares to the databases and show them after you press it-->
+    <button type="button" id="btn1">Save Password</button>
+    <p id="secShares"></p>
+    <!--The get button will get the password for the current site and display it-->
+    <button type="button" id="btn2">Get Password</button>
+    <p id="password"></p>
+    
+    <script src="/frontend/popup.js"></script>
+    <script src="/secrets.js/secrets.js"></script>
   </body>
 </html>
