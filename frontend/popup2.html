@@ -2,13 +2,87 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="/frontend/bootstrap.min.css">
     <link rel="stylesheet" href="/frontend/popup.css">
     <title>SSS Browser Extension</title>
   </head>
   <body>
-    <h1> This is the second page</h1>
+    <nav class="navbar navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#" >
+          <img src="/icons/extension-32.png">
+          Distributed Password Manager</a>
+      </div>
+    </nav>
 
-    <script src="/frontend/popup.js"></script>
+    <ul>
+      <li id="nav1" class="active-nav"><a href="/frontend/popup.html">Set Password</a></li>
+      <li id="nav2" class""><a href="/frontend/popup2.html">Fetch Password</a></li>
+    </ul>
+
+    <div class="container-fluid">
+
+
+      <div class="input-group input-group-sm" style="margin-top:20px;">
+        <span class="input-group-text">Current URL</span>
+        <textarea id="p_url" class="form-control" aria-label="With textarea"></textarea>
+      </div>
+
+      <div class="set-password-form">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="Master Password" aria-label="Password" aria-describedby="basic-addon1">
+        </div>
+      </div>
+
+      <!-- <form>
+        <input type="text" id="pass" placeholder="Password for this site">
+      </form> -->
+      <p id="username_ip"></p>
+      <p id="password_ip"></p>
+      <!--The save button will save the secret shares to the databases and show them after you press it-->
+      <button type="button" class="btn btn-success" id="btn1">Get Password</button>
+
+      <div class="set-password-form">
+        <h5>Fetched Password</h5>
+        <div class="input-group mb-3">
+          <input id="pass_op" type="text" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+      </div>
+
+      <div class="set-password-form">
+        <h5>Secret Shares</h5>
+
+        <div class="input-group mb-3">
+          <input id="share_1" type="text" class="form-control" placeholder="Share 1" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+          <input id="share_2" type="text" class="form-control" placeholder="Share 2" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+          <input id="share_3" type="text" class="form-control" placeholder="Share 3" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mb-3">
+          <input id="pass_gen" type="text" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-primary" id="btn2">Get Password</button>
+
+
+      <p id="secShares"></p>
+      <!--The get button will get the password for the current site and display it-->
+      <!-- <button type="button" id="btn2">Get Password</button> -->
+      <p id="password"></p>
+<!--
+      <button type="button" id="btn3">Run openPGP</button>
+      <button type="button" id="btn4">API Call</button> -->
+    </div>
+
+
+    <script src="/frontend/popup2.js"></script>
     <script src="/secrets.js/secrets.js"></script>
     <script src="/openpgp.min.js"></script>
   </body>
