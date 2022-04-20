@@ -3,12 +3,20 @@
   "version": "0.1",
   "manifest_version": 3,
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js",
+    "type":"module"
   },
   "permissions": ["tabs","storage","scripting","activeTab"],
   "action": {
     "default_icon": "icons/extension-32.png",
     "default_popup": "frontend/popup.html",
     "default_title": "SSS based Password Manager"
-  }
+  },
+  "content_scripts" : [{
+    "matches": [
+        "<all_urls>"
+      ],
+  "host_permissions": ["http://localhost:8000/*"],
+    "js": ["jquery-3.6.0.js", "content.js"]
+  }]
 }

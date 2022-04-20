@@ -1,0 +1,19 @@
+{
+  "name": "sss-extension",
+  "version": "1.0.0",
+  "description": "Distributed password manager using Shamir's secret share",
+  "main": "background.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HimanshuSinghGH/sss-extension.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HimanshuSinghGH/sss-extension/issues"
+  },
+  "homepage": "https://github.com/HimanshuSinghGH/sss-extension#readme"
+}

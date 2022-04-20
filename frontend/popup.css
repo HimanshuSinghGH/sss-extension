@@ -1,7 +1,56 @@
 body {
   width: 600px ;
-  
+  display:table ;
 }
-h1 {
-  color: red ;
+
+a {
+  text-decoration: none;
+  color: black;
+  display: block;
+  /* background-color: #dddddd; */
+}
+}
+
+row {
+    margin:0;
+    padding:0 ;
+}
+
+.page-navigator {
+  align-items: center;
+  height:50px;
+  background-color: red ;
+}
+
+.active-nav {
+  background-color: #d7d7d7;
+}
+
+.nav-span {
+  display: inline-block;
+  text-align: center;
+  height:50px ;
+  width:49%;
+  background-color: blue ;
+}
+
+.set-password-form{
+  margin-top: 20px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #f7f7f7;
+  height:40px;
+}
+
+li {
+  float:left;
+  height:100%;
+  align-items: center;
+  text-align: center;
+  width: 49%;
+  padding-top: 5px;
 }

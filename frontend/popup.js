@@ -2,7 +2,7 @@ chrome.tabs.query({active:true, currentWindow:true}, function(tabs) {
     var activeTab = tabs[0];
     var URL = activeTab.url;
     // Show the URL in the extension
-    document.getElementById('p_url').innerHTML = "Current URL = " + URL;
+    document.getElementById('p_url').innerHTML = URL;
 });
 
 btn1.addEventListener("click",async () => {
@@ -15,39 +15,28 @@ btn1.addEventListener("click",async () => {
         passVal = document.getElementById("pass").value;
 
         // Split into two with Shamir's secret sharing
-        shamirShares = shamir.create(passVal,2,2);
+        shamirShares = shamir.create(passVal,3,2);
         console.log('- shamir shares:\n', shamirShares)
 
         // Store the key, value pair
-        dbVal1 = {};
-        dbVal2 = {};
-        dbVal1[URL] = shamirShares[0];
-        dbVal2[URL] = shamirShares[1];
-        saveObjectInLocalStorage(dbVal1);
-        saveObjectInSyncStorage(dbVal2);
-
-        console.log(getObjectFromLocalStorage(URL));
-        console.log(getObjectFromSyncStorage(URL));
+        // dbVal1 = {};
+        // dbVal2 = {};
+        // dbVal1[URL] = shamirShares[0];
+        // dbVal2[URL] = shamirShares[1];
+        // saveObjectInLocalStorage(dbVal1);
+        // saveObjectInSyncStorage(dbVal2);
+        // console.log(getObjectFromLocalStorage(URL));
+        // console.log(getObjectFromSyncStorage(URL));
         //Output the secret shares on the popup
-        document.getElementById('secShares').innerHTML = 'Shamir shares = [ ' + shamirShares[0] + '<br>' + shamirShares[1] + ' ]';
-        
+        document.getElementById('pass_op').value = passVal;
+        document.getElementById('share_1').value = shamirShares[0] ;
+        document.getElementById('share_2').value = shamirShares[1] ;
+        document.getElementById('share_3').value = shamirShares[2] ;
+
     })
 
 })
 
-btn2.addEventListener("click",async () => {
-    //Get URL for storing credentials
-    chrome.tabs.query({active:true, currentWindow:true}, async(tabs) => {
-        var activeTab = tabs[0];
-        var URL = activeTab.url;
-        //Get values from databases and combine them
-        dbVal1 = await getObjectFromLocalStorage(URL);
-        dbVal2 = await getObjectFromSyncStorage(URL);
-        dbVals = [dbVal1, dbVal2];
-        //Output password on popup
-        document.getElementById("password").innerHTML = shamir.decode(dbVals);
-    });
-});
 
 const getObjectFromLocalStorage = async function(key) {
     return new Promise((resolve, reject) => {
@@ -113,4 +102,40 @@ const getObjectFromLocalStorage = async function(key) {
 		// Convert back to UTF
 		return secrets.hex2str(sharesCombined)
 	}
-}
+};
+
+
+const pgpencrypt =  async function () {
+    var password = "abcd1234" ;
+    var uint8array = new TextEncoder().encode(password);
+    console.log(uint8array) ;
+    const message = await openpgp.createMessage({ binary: uint8array });
+    console.log(message) ;
+    const encrypted = await openpgp.encrypt({
+        message, // input as Message object
+        passwords: ['passphrase'], // multiple passwords possible
+        format: 'binary' // don't ASCII armor (for Uint8Array output)
+    });
+    console.log("Encrypted password")
+    console.log(encrypted); // Uint8Array
+
+    const encryptedMessage = await openpgp.readMessage({
+        binaryMessage: encrypted // parse encrypted bytes
+    });
+    console.log(encryptedMessage) ;
+    const { data: decrypted } = await openpgp.decrypt({
+        message: encryptedMessage,
+        passwords: ['passphrase'], // decrypt with password
+        format: 'binary' // output as Uint8Array
+    });
+
+    var dec_password = new TextDecoder().decode(decrypted);
+    console.log("Decrypted Password"); // Uint8Array([0x01, 0x01, 0x01])
+    console.log(dec_password) ;
+
+};
+
+nav2.addEventListener("click",async () => {
+    document.getElementById('nav2').classList.add('active-nav');
+    document.getElementById('nav1').classList.remove('active-nav');
+    })
